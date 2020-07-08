@@ -1,10 +1,11 @@
-import Nav from '../components/Nav'
+import React from "react";
 
-const AboutPage = () => (
-  <>
-    <Nav />
-    <p>Hello, I'm the about page</p>
-  </>
-)
+const About = () => {
+  return (
+    <div>
+      <h1>Hello ablout</h1>
+    </div>
+  );
+};
 
-export default AboutPage
+export default About;
