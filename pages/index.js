@@ -2,20 +2,21 @@ import React, { useState, useEffect } from "react";
 import SideMenu from "../components/sideMenu";
 import Carousel from "../components/carousel";
 import MovieList from "../components/movieList";
-import { getMovies } from "../actions";
+import { getMovies, getCategories } from "../actions";
 
 const Home = (props) => {
+  const { images, movies, categories } = props;
   return (
     <div>
       <div className="container">
         <div className="row">
           <div className="col-lg-3">
-            <SideMenu />
+            <SideMenu categories={categories} />
           </div>
           <div className="col-lg-9">
-            <Carousel />
+            <Carousel images={images} />
             <div className="row">
-              <MovieList movies={props.movies} />
+              <MovieList movies={movies} />
             </div>
           </div>
         </div>
@@ -25,9 +26,19 @@ const Home = (props) => {
 };
 
 Home.getInitialProps = async () => {
+  const categories = await getCategories();
   const movies = await getMovies();
+  const images = movies.map((movie) => {
+    return {
+      id: `image-${movie.id}`,
+      url: movie.cover,
+      name: movie.name,
+    };
+  });
   return {
     movies,
+    images,
+    categories,
   };
 };
 
